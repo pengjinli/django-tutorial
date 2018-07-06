@@ -1,4 +1,6 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from .models import Question
 
@@ -20,17 +22,15 @@ def results(request, question_id):
     }
     return render(request, 'polls/results.html', context)
 
-def vote(request):
+def vote(request, question_id):
     #
-    return render(request, 'polls/index.html')
+    return HttpResponse(request)
 
 def detail(request, question_id):
     #
     question = get_object_or_404(Question, pk=question_id)
-    choices = question.choice_set.all()
     context = {
         'question': question,
-        'choices_list': choices,
     }
     return render(request, 'polls/detail.html', context)
 
